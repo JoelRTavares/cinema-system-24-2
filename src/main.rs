@@ -40,11 +40,11 @@ fn main() {
     let mut filmes = vec![filme]; // Salvar dados no arquivo 
     filmes.push(filme2);
 
-    if let Err(e) = save_to_file(&filmes, "filmes.json") { 
+    if let Err(e) = save_to_file(&filmes, "filmes.bin") { 
         eprintln!("Erro ao salvar dados: {}", e); 
     } // Carregar dados do arquivo
     
-    match load_from_file("filmes.json") { 
+    match load_from_file("filmes.bin") { 
         Ok(loaded_filmes) => { 
             println!("Dados carregados: {:#?}", loaded_filmes); 
             filmes = loaded_filmes; 
