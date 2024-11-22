@@ -39,7 +39,7 @@ fn main() {
 
     let mut filmes = vec![filme]; // Salvar dados no arquivo 
     filmes.push(filme2);
-
+    
     if let Err(e) = save_to_file(&filmes, "filmes.bin") { 
         eprintln!("Erro ao salvar dados: {}", e); 
     } // Carregar dados do arquivo
@@ -49,7 +49,6 @@ fn main() {
             println!("Dados carregados: {:#?}", loaded_filmes); 
             filmes = loaded_filmes; 
             } 
-         Err(e) => eprintln!("Erro ao carregar dados: {}", e), 
-    } // Exibir dados
-    println!("Filme definido: {:#?}", filmes);
+         Err(e) => eprintln!("Erro ao carregar dados: {}", e),
+    } 
 }
