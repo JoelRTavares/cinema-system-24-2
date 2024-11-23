@@ -1,4 +1,5 @@
 use std::fs::File;
+use std::fs::OpenOptions;
 use std::io::{self, BufReader, BufWriter, ErrorKind};
 
 use crate::Filme;
@@ -45,4 +46,14 @@ pub fn load_from_file(path: &str) -> Result<Vec<Filme>, BinError> {
     Ok(filmes)
 }
 
+pub fn append_filme_to_file(filme: &Filme, path: &str) -> Result<(), BinError> {
+    let file = OpenOptions::new()
+        .write(true)
+        .append(true)
+        .create(true)
+        .open(path)?;
+    let writer = BufWriter::new(file);
+    bincode::serialize_into(writer, &filme)?;
+    Ok(())
+}
 

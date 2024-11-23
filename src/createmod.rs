@@ -1,35 +1,40 @@
 ﻿use crate::{Filme, Genero};
 use std::io;
-use crate::iocontroller::{save_to_file, load_from_file};
+use crate::iocontroller::{append_filme_to_file};
 use chrono::NaiveDate;
 
 
 pub fn create_movie(){
-    let nomeF = definir_nome();
-    let bilhetes = definir_bilhetes();      
-    let data = definir_data();
-    let gen = definir_genero();
+    loop{
+        let nomeF = definir_nome();
+        let bilhetes = definir_bilhetes();      
+        let data = definir_data();
+        let gen = definir_genero();
 
-    let filme = Filme{
-        nome: nomeF,
-        bilhetes_vendidos: bilhetes,
-        data_lancamento: data,
-        genero: gen,
-    };
-    println!("Filme criado: {:#?}", filme);
+        let filme = Filme{
+            nome: nomeF,
+            bilhetes_vendidos: bilhetes,
+            data_lancamento: data,
+            genero: gen,
+        };
+        println!("Filme criado: {:#?}", filme);
+    
+        if let Err(e) = append_filme_to_file(&filme, "filmes.bin") { 
+            eprintln!("Erro ao adicionar o filme: {}", e); 
+        } 
 
-    let mut filmes = Vec::new();
-    match load_from_file("filmes.bin") { 
-        Ok(loaded_filmes) => { 
-            //println!("Dados carregados: {:#?}", loaded_filmes); 
-            filmes = loaded_filmes; 
-            } 
-         Err(e) => eprintln!("Erro ao carregar dados: {}", e),
-    } 
-    filmes.push(filme);
-    if let Err(e) = save_to_file(&filmes, "filmes.bin") { 
-        eprintln!("Erro ao salvar dados: {}", e); 
-    } 
+        println!("Gostaria de adicionar outro filme?\n0 - Não\n1 - Sim");
+	    let mut opcao = String::new();
+        io::stdin()
+            .read_line(&mut opcao)
+            .expect("Error reading this line!");
+
+        match opcao.trim(){
+            "0" => break,
+            "1" => println!("Iniciando outro filme a ser criado..."),
+            _ => println!("Iniciando outro filme a ser criado..."),
+        };
+    }
 }
 
 fn definir_nome() -> String{

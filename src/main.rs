@@ -9,7 +9,7 @@ use self::iocontroller::{save_to_file, load_from_file};
 
 use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum Genero{
     Acao,
     Animacao,
@@ -20,7 +20,7 @@ pub enum Genero{
     Outros,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Filme{
     nome: String,
     bilhetes_vendidos:u32,
