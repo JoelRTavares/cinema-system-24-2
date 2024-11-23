@@ -1,6 +1,10 @@
-use chrono::NaiveDate;
+﻿use chrono::NaiveDate;
+use std::io;
 
 mod iocontroller;
+mod createmod;
+
+use self::createmod::{create_movie};
 use self::iocontroller::{save_to_file, load_from_file};
 
 use serde::{Serialize, Deserialize};
@@ -13,6 +17,7 @@ pub enum Genero{
     Drama,
     Gospel,
     Suspense,
+    Outros,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -22,8 +27,8 @@ pub struct Filme{
     data_lancamento:NaiveDate,
     genero:Genero,
 }
-fn main() {
-
+fn main() { 
+/*
     let filme = Filme{
         nome:String::from("Filme muito engracado!"),
         bilhetes_vendidos: 1200,
@@ -51,4 +56,27 @@ fn main() {
             } 
          Err(e) => eprintln!("Erro ao carregar dados: {}", e),
     } 
+    */
+    println!("Bem vindo ao Cinema System:");
+    loop{
+        println!("Escolha a operação que deseja realizar:");
+        println!("-1 -> Encerrar execução\n\n1 -> Criar filme\n2 -> Atualizar filme\n3 -> Ler filme\n4 -> Deletar filme");
+        let mut guess = String::new();
+
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Erro na leitura dessa linha!");
+
+        match guess.trim(){
+            "-1" => {
+                println!("Encerrando execução...\nObrigado pela preferência!");
+                break;
+            },
+            "1" => create_movie(),
+            "2" => println!("Atualizar filme"),
+            "3" => println!("Ler filme"),
+            "4" => println!("Deletar filme"),
+            _ => println!("Comando não reconhecido"),
+        }
+    }
 }
