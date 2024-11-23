@@ -57,3 +57,18 @@ pub fn append_filme_to_file(filme: &Filme, path: &str) -> Result<(), BinError> {
     Ok(())
 }
 
+pub fn check_filme_nome(nome_filme: &str, path: &str) -> bool{//Checar se nome selecionado ja existe no arquivo. true = ja existe; false = nao existe
+    let filmes = match load_from_file(path){
+        Ok(loaded_filmes) => loaded_filmes, 
+        Err(e) => { 
+             eprintln!("Erro ao carregar dados: {}", e); 
+             return false; 
+        }
+    };
+    for i in filmes{
+        if i.nome == nome_filme {
+            return true;
+        }
+    }
+    false
+}

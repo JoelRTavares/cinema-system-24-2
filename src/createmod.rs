@@ -1,6 +1,6 @@
 ﻿use crate::{Filme, Genero};
 use std::io;
-use crate::iocontroller::{append_filme_to_file};
+use crate::iocontroller::{append_filme_to_file, check_filme_nome};
 use chrono::NaiveDate;
 
 
@@ -38,13 +38,25 @@ pub fn create_movie(){
 }
 
 fn definir_nome() -> String{
-    println!("Digite o nome do filme a incluir:");
-	let mut nomeF = String::new();
-    io::stdin()
-        .read_line(&mut nomeF)
-        .expect("Error reading this line!");
+    loop{
+        println!("Digite o nome do filme a incluir:");
+	    let mut nomeF = String::new();
+        io::stdin()
+            .read_line(&mut nomeF)
+            .expect("Error reading this line!");
 
-    nomeF.trim().to_string()
+        nomeF = nomeF.trim().to_string();
+
+        match check_filme_nome(&nomeF, "filmes.bin"){
+            true => {
+                println!("Esse nome já existe no sistema! Por favor, escolha outro!");
+                continue;
+            },
+            false =>{
+                return nomeF;
+            }
+        }
+    }
 }
 
 fn definir_bilhetes() -> u32{
