@@ -6,13 +6,13 @@ use chrono::NaiveDate;
 
 pub fn create_movie(){
     loop{
-        let nomeF = definir_nome();
+        let nome_f = definir_nome();
         let bilhetes = definir_bilhetes();      
         let data = definir_data();
         let gen = definir_genero();
 
         let filme = Filme{
-            nome: nomeF,
+            nome: nome_f,
             bilhetes_vendidos: bilhetes,
             data_lancamento: data,
             genero: gen,
@@ -40,20 +40,20 @@ pub fn create_movie(){
 fn definir_nome() -> String{
     loop{
         println!("Digite o nome do filme a incluir:");
-	    let mut nomeF = String::new();
+	    let mut nome_f = String::new();
         io::stdin()
-            .read_line(&mut nomeF)
+            .read_line(&mut nome_f)
             .expect("Error reading this line!");
 
-        nomeF = nomeF.trim().to_string();
+        nome_f = nome_f.trim().to_string();
 
-        match check_filme_nome(&nomeF, "filmes.bin"){
+        match check_filme_nome(&nome_f, "filmes.bin"){
             true => {
                 println!("Esse nome já existe no sistema! Por favor, escolha outro!");
                 continue;
             },
             false =>{
-                return nomeF;
+                return nome_f;
             }
         }
     }
@@ -129,7 +129,7 @@ fn definir_data() ->NaiveDate{
 }
 fn definir_genero() -> Genero{
     println!("Defina o gênero do filme: ");
-    println!("1 - Acao,\n2 - Animacao,\n3 - Comedia,\n4 - Drama,\n5 - Gospel,\n6 -Suspense,\nOutra entrada - Outros.");
+    println!("1 - Acao,\n2 - Animacao,\n3 - Comedia,\n4 - Drama,\n5 - Gospel,\n6 - Suspense,\nOutra entrada - Outros.");
 
     let mut genero = String::new();
     io::stdin()

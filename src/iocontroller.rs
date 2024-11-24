@@ -1,5 +1,4 @@
 use std::fs::File;
-use std::fs::OpenOptions;
 use std::io::{self, BufReader, BufWriter, ErrorKind};
 
 use crate::Filme;
@@ -47,14 +46,13 @@ pub fn load_from_file(path: &str) -> Result<Vec<Filme>, BinError> {
 }
 
 pub fn append_filme_to_file(filme: &Filme, path: &str) -> Result<(), BinError> {
-    let file = OpenOptions::new()
-        .write(true)
-        .append(true)
-        .create(true)
-        .open(path)?;
-    let writer = BufWriter::new(file);
-    bincode::serialize_into(writer, &filme)?;
-    Ok(())
+    let mut filmes = match load_from_file(path) { 
+        Ok(f) => f, 
+        Err(_) => Vec::new(), 
+    };
+    filmes.push(filme.clone());
+
+    save_to_file(&filmes, "filmes.bin")
 }
 
 pub fn check_filme_nome(nome_filme: &str, path: &str) -> bool{//Checar se nome selecionado ja existe no arquivo. true = ja existe; false = nao existe
