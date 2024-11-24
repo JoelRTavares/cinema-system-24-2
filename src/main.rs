@@ -4,9 +4,11 @@ use std::io;
 mod iocontroller;
 mod createmod;
 mod readmod;
+mod deletemod;
 
 use self::createmod::{create_movie};
 use self::readmod::{read_movies};
+use self::deletemod::{delete_movie};
 
 use serde::{Serialize, Deserialize};
 
@@ -47,7 +49,7 @@ fn main() {
             "1" => create_movie(),
             "2" => println!("Atualizar filme"),
             "3" => read_movies(),
-            "4" => println!("Deletar filme"),
+            "4" => delete_movie(),
             _ => println!("Comando não reconhecido"),
         }
     }

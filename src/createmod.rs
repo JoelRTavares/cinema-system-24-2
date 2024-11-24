@@ -28,12 +28,10 @@ pub fn create_movie(){
         io::stdin()
             .read_line(&mut opcao)
             .expect("Error reading this line!");
-
-        match opcao.trim(){
-            "0" => break,
-            "1" => println!("Iniciando outro filme a ser criado..."),
-            _ => println!("Iniciando outro filme a ser criado..."),
-        };
+        if opcao.trim() == "0"{
+            break;
+        }
+        println!("Iniciando outro filme a ser criado...");
     }
 }
 
@@ -79,15 +77,15 @@ fn definir_bilhetes() -> u32{
 }
 fn definir_data() ->NaiveDate{
     loop{
-        println!("Digite o ano de lançamento do filme:");
+        println!("Digite o ano de lançamento do filme (Entre 2000 e 2025):");
 	    let mut ano = String::new();
         io::stdin()
             .read_line(&mut ano)
             .expect("Error reading this line!");
         let ano: u32 = match ano.trim().parse() {
-                Ok(num) => num,
-                Err(_) => {
-                    println!("Por favor, insira um ano válido!");
+                Ok(num) if num >= 2000 && num <= 2025 => num,
+                _ => {
+                    println!("Por favor, insira um ano válido (Entre 2000 e 2025)!");
                     continue;
                 },
         };
