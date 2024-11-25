@@ -5,10 +5,12 @@ mod iocontroller;
 mod createmod;
 mod readmod;
 mod deletemod;
+mod updatemod;
 
 use self::createmod::{create_movie};
 use self::readmod::{read_movies};
 use self::deletemod::{delete_movie};
+use self::updatemod::{update_movie};
 
 use serde::{Serialize, Deserialize};
 
@@ -47,7 +49,7 @@ fn main() {
                 break;
             },
             "1" => create_movie(),
-            "2" => println!("Atualizar filme"),
+            "2" => update_movie(),
             "3" => read_movies(),
             "4" => delete_movie(),
             _ => println!("Comando não reconhecido"),

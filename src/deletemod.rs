@@ -2,7 +2,6 @@
 use std::io;
 
 pub fn delete_movie(){
-
     let mut filmes = match load_from_file("filmes.bin"){
         Ok(loaded_filmes) => loaded_filmes, 
         Err(e) => { 
@@ -21,7 +20,7 @@ pub fn delete_movie(){
             .read_line(&mut ind)
             .expect("Error reading this line!");
         let ind: usize = match ind.trim().parse() {
-                Ok(num) if num >= 0 && num < filmes.len() => num,
+                Ok(num) if num < filmes.len() => num,
                 _ => {
                     println!("Por favor, insira um índice válido (entre 0 e {})!", filmes.len() - 1);
                     continue;
@@ -42,6 +41,6 @@ pub fn delete_movie(){
         if opt.trim() == "0" {
             break;
         }
-        println!("Iniciando a exclusão de outro filme...")
+        println!("Iniciando a exclusão de outro filme...");
     }
 }
