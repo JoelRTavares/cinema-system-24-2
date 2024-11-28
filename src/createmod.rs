@@ -77,11 +77,19 @@ fn definir_bilhetes() -> u32{
 }
 fn definir_data() ->NaiveDate{
     loop{
-        println!("Digite o ano de lançamento do filme (Entre 2000 e 2025):");
-	    let mut ano = String::new();
+        println!("Digite a data no formato YYYY-MM-DD\n(Entre 2000-01-01 e 2025-12-31):");
+        let mut data = String::new();
         io::stdin()
-            .read_line(&mut ano)
+            .read_line(&mut data)
             .expect("Error reading this line!");
+
+        let data : Vec<_> = data.trim().split("-").collect();
+        if data.len() != 3{
+            println!("Por favor, insira uma data no formato YYYY-MM-DD!");
+            continue;
+        }
+
+	    let ano = data[0].to_string();
         let ano: u32 = match ano.trim().parse() {
                 Ok(num) if num >= 2000 && num <= 2025 => num,
                 _ => {
@@ -89,11 +97,8 @@ fn definir_data() ->NaiveDate{
                     continue;
                 },
         };
-        println!("Digite o mês de lançamento do filme (entre 1 e 12):");
-	    let mut mes = String::new();
-        io::stdin()
-            .read_line(&mut mes)
-            .expect("Error reading this line!");
+
+	    let mes = data[1].to_string();
         let mes: u32 = match mes.trim().parse() {
                 Ok(num) if num >= 1 && num <= 12 => num, 
                 _ => {
@@ -101,11 +106,8 @@ fn definir_data() ->NaiveDate{
                     continue;
                 },
         };
-        println!("Digite o dia de lançamento do filme:");
-	    let mut dia = String::new();
-        io::stdin()
-            .read_line(&mut dia)
-            .expect("Error reading this line!");
+
+	    let dia = data[2].to_string();
         let dia: u32 = match dia.trim().parse() {
                 Ok(num) if num >= 1 && num <= 31 => num,
                 _ => {
@@ -116,9 +118,9 @@ fn definir_data() ->NaiveDate{
 
         let data = NaiveDate::from_ymd_opt(ano as i32, mes, dia);
         match data { 
-            Some(dat) => println!("Data de lançamento: {}", dat),
+            Some(_) => {},
             None => {
-                println!("Por favor, insira uma data válida!");
+                println!("Por favor, insira uma data válida!\nA data {ano}-{mes}-{dia} não existe!");
                 continue;
             }, 
         };
