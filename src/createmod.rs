@@ -46,7 +46,8 @@ fn definir_nome() -> String{
         nome_f = nome_f.trim().to_string();
 
         if let Err(e) = checar_nome(&nome_f) { 
-            eprintln!("Erro ao criar o nome do filme:\n{}", e); 
+            eprintln!("Erro ao criar o nome do filme:\n\t{}", e); 
+            eprintln!("Erro ao criar o nome do filme:\n\t{}", e); 
             continue;
         }
         return nome_f;
@@ -74,7 +75,7 @@ fn definir_bilhetes() -> u32{
         match checar_bilhetes(&bilhetes.trim()){
             Ok(num) => return num,
             Err(e) => {
-                eprintln!("Erro ao definir os bilhetes vendidos:\n{}", e);
+                eprintln!("Erro ao definir os bilhetes vendidos:\n\t{}", e);
                 continue;
             },
         }
@@ -100,7 +101,7 @@ fn definir_data() ->NaiveDate{
         match checar_data(data.trim()){
             Ok(dat) => return dat,
             Err(e) => {
-                eprintln!("Erro ao definir a data:\n{e}");
+                eprintln!("Erro ao definir a data:\n\t{e}");
                 continue;
             },
         };
@@ -141,7 +142,7 @@ fn checar_data(data: &str) -> Result<NaiveDate, String>{
     match data { 
         Some(_) => return Ok(data.expect("Data Inválida")),
         None => {
-            return Err(String::from("Por favor, insira uma data válida!\nA data {ano}-{mes}-{dia} não existe!"));
+            return Err(format!("Por favor, insira uma data válida! A data {}-{}-{} não existe!", ano, mes, dia));
         }, 
     };
     
