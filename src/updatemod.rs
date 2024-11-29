@@ -12,6 +12,10 @@ pub fn update_movie(){
              return;
         }
     };
+    if filmes.len() == 0{
+        eprintln!("Não existem filmes para serem deletados!\nPor favor, crie algum filme para usar essa funcionalidade"); 
+        return;
+    }
     loop{
 	    println!("Escolha o filme que gostaria de atualizar (selecione um índice entre 0 e {}): ", filmes.len() - 1);
         for (index, filme) in filmes.iter().enumerate() {
@@ -182,3 +186,20 @@ fn atualizar_genero(f: &mut Filme){
         _ => f.genero = Genero::Outros,
     };
 }
+
+/*
+#[cfg(test)]
+mod tests{
+    use super::*;
+
+    //Testes de nome: 
+    #[test]
+    fn escolher_nome_valido() ->Result<(), String>{
+        let nome = "😀😅🤠";
+        match checar_nome(&nome) { 
+            Ok(_) => Ok(()), 
+            Err(e) => Err(e), 
+        }
+    }
+}
+*/
