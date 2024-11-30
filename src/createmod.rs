@@ -47,7 +47,6 @@ fn definir_nome() -> String{
 
         if let Err(e) = checar_nome(&nome_f) { 
             eprintln!("Erro ao criar o nome do filme:\n\t{}", e); 
-            eprintln!("Erro ao criar o nome do filme:\n\t{}", e); 
             continue;
         }
         return nome_f;

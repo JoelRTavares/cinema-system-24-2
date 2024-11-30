@@ -34,6 +34,10 @@ pub struct Filme{
 }
 fn main() { 
     println!("Bem vindo ao Cinema System:");
+    run();
+}
+
+fn run(){
     loop{
         println!("Escolha a operação que deseja realizar:");
         println!("-1 -> Encerrar execução\n\n1 -> Criar filme\n2 -> Atualizar filme\n3 -> Ler filme\n4 -> Deletar filme");
